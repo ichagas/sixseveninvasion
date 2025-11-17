@@ -19,6 +19,9 @@ class GameState extends ChangeNotifier {
   // Purchased upgrades (upgrade ID -> level)
   final Map<String, int> _upgradeLevels = {};
 
+  // Purchased clout upgrades (clout upgrade IDs)
+  final Set<String> _cloutUpgrades = {};
+
   // Active resistance events (event ID -> end timestamp)
   final Map<String, DateTime> _activeEvents = {};
 
@@ -37,6 +40,7 @@ class GameState extends ChangeNotifier {
   double get cloutMultiplier => _cloutMultiplier;
   int get totalResets => _totalResets;
   Map<String, int> get upgradeLevels => Map.unmodifiable(_upgradeLevels);
+  Set<String> get cloutUpgrades => Set.unmodifiable(_cloutUpgrades);
   Map<String, DateTime> get activeEvents => Map.unmodifiable(_activeEvents);
   int get totalTaps => _totalTaps;
   double get totalEnergyGenerated => _totalEnergyGenerated;
@@ -111,10 +115,31 @@ class GameState extends ChangeNotifier {
     return DateTime.now().isBefore(endTime);
   }
 
+  /// Purchase clout upgrade
+  bool purchaseCloutUpgrade(String upgradeId, int cloutCost) {
+    if (_clout >= cloutCost && !_cloutUpgrades.contains(upgradeId)) {
+      _clout -= cloutCost;
+      _cloutUpgrades.add(upgradeId);
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  /// Check if clout upgrade is purchased
+  bool hasCloutUpgrade(String upgradeId) {
+    return _cloutUpgrades.contains(upgradeId);
+  }
+
+  /// Calculate clout earned from prestige
+  int calculateCloutGain() {
+    // Clout based on location reached (1 per location past first)
+    return _currentLocation > 0 ? _currentLocation : 0;
+  }
+
   /// Prestige reset
   void prestige(int cloutGained) {
     _clout += cloutGained;
-    _cloutMultiplier = 1.0 + (_clout * 0.1); // 10% per clout
     _totalResets++;
 
     // Reset progress
@@ -123,6 +148,7 @@ class GameState extends ChangeNotifier {
     _locationSaturation = 0.0;
     _upgradeLevels.clear();
     _activeEvents.clear();
+    // Note: clout upgrades persist!
 
     notifyListeners();
   }
@@ -151,6 +177,7 @@ class GameState extends ChangeNotifier {
       'cloutMultiplier': _cloutMultiplier,
       'totalResets': _totalResets,
       'upgradeLevels': _upgradeLevels,
+      'cloutUpgrades': _cloutUpgrades.toList(),
       'activeEvents': _activeEvents.map((k, v) => MapEntry(k, v.toIso8601String())),
       'totalTaps': _totalTaps,
       'totalEnergyGenerated': _totalEnergyGenerated,
@@ -174,6 +201,11 @@ class GameState extends ChangeNotifier {
     if (json['upgradeLevels'] != null) {
       _upgradeLevels.clear();
       _upgradeLevels.addAll(Map<String, int>.from(json['upgradeLevels']));
+    }
+
+    if (json['cloutUpgrades'] != null) {
+      _cloutUpgrades.clear();
+      _cloutUpgrades.addAll(List<String>.from(json['cloutUpgrades']));
     }
 
     if (json['activeEvents'] != null) {
