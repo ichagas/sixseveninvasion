@@ -6,33 +6,49 @@ import '../models/game_state.dart';
 import '../services/audio_service.dart';
 import '../services/game_config_service.dart';
 import 'components/tap_particle.dart';
+import 'components/background_component.dart';
+import 'components/character_component.dart';
 import 'systems/passive_generator_system.dart';
 import 'systems/upgrade_manager.dart';
+import 'systems/location_progression_system.dart';
+import 'systems/resistance_event_system.dart';
 
 /// Main game class for 6-7 Invasion
 class SixSevenGame extends FlameGame with TapDetector {
   final GameState gameState;
   final AudioService audioService;
   final GameConfigService configService;
+  final Function(String eventId)? onEventTriggered;
 
   late PassiveGeneratorSystem passiveSystem;
   late UpgradeManager upgradeManager;
+  late LocationProgressionSystem locationSystem;
+  late ResistanceEventSystem eventSystem;
 
   SixSevenGame({
     required this.gameState,
     required this.audioService,
     required this.configService,
+    this.onEventTriggered,
   });
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // Initialize background color
-    camera.backdrop.add(
-      RectangleComponent(
-        size: size,
-        paint: Paint()..color = const Color(0xFF87CEEB), // Sky blue
+    // Add background component (replaces static backdrop)
+    await add(
+      BackgroundComponent(
+        gameState: gameState,
+        configService: configService,
+      ),
+    );
+
+    // Add character/NPC sprites
+    await add(
+      CharacterComponent(
+        gameState: gameState,
+        configService: configService,
       ),
     );
 
@@ -48,6 +64,21 @@ class SixSevenGame extends FlameGame with TapDetector {
       configService: configService,
     );
     await add(upgradeManager);
+
+    locationSystem = LocationProgressionSystem(
+      gameState: gameState,
+      configService: configService,
+      audioService: audioService,
+    );
+    await add(locationSystem);
+
+    eventSystem = ResistanceEventSystem(
+      gameState: gameState,
+      configService: configService,
+      audioService: audioService,
+      onEventTriggered: onEventTriggered,
+    );
+    await add(eventSystem);
   }
 
   @override
