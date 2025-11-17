@@ -10,6 +10,9 @@ import 'ui/overlays/energy_display.dart';
 import 'ui/overlays/shop_panel.dart';
 import 'ui/overlays/location_progress_bar.dart';
 import 'ui/overlays/event_notifications.dart';
+import 'ui/overlays/prestige_panel.dart';
+import 'ui/overlays/settings_panel.dart';
+import 'ui/screens/title_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +25,8 @@ void main() async {
   // Load game configuration
   await configService.loadConfigs();
 
-  // Try to load saved game
-  GameState gameState = await saveService.loadGame() ?? GameState();
-
   runApp(
     SixSevenInvasionApp(
-      gameState: gameState,
       saveService: saveService,
       audioService: audioService,
       configService: configService,
@@ -36,14 +35,12 @@ void main() async {
 }
 
 class SixSevenInvasionApp extends StatelessWidget {
-  final GameState gameState;
   final SaveService saveService;
   final AudioService audioService;
   final GameConfigService configService;
 
   const SixSevenInvasionApp({
     super.key,
-    required this.gameState,
     required this.saveService,
     required this.audioService,
     required this.configService,
@@ -51,17 +48,43 @@ class SixSevenInvasionApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: gameState,
-      child: MaterialApp(
-        title: '6-7 Invasion',
-        theme: ThemeData.dark(),
-        home: GameScreen(
-          gameState: gameState,
-          saveService: saveService,
-          audioService: audioService,
-          configService: configService,
-        ),
+    return MaterialApp(
+      title: '6-7 Invasion',
+      theme: ThemeData.dark(),
+      home: TitleScreen(
+        saveService: saveService,
+        onNewGame: () async {
+          final gameState = GameState();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => ChangeNotifierProvider.value(
+                value: gameState,
+                child: GameScreen(
+                  gameState: gameState,
+                  saveService: saveService,
+                  audioService: audioService,
+                  configService: configService,
+                ),
+              ),
+            ),
+          );
+        },
+        onContinue: () async {
+          final gameState = await saveService.loadGame() ?? GameState();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => ChangeNotifierProvider.value(
+                value: gameState,
+                child: GameScreen(
+                  gameState: gameState,
+                  saveService: saveService,
+                  audioService: audioService,
+                  configService: configService,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -152,6 +175,34 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  void _showPrestige() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: PrestigePanel(
+          configService: widget.configService,
+          audioService: widget.audioService,
+        ),
+      ),
+    );
+  }
+
+  void _showSettings() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SettingsPanel(
+        audioService: widget.audioService,
+        saveService: widget.saveService,
+        gameState: widget.gameState,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,21 +227,27 @@ class _GameScreenState extends State<GameScreen> {
                   configService: widget.configService,
                 ),
                 const Spacer(),
-                // Shop button at bottom
+                // Bottom buttons
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Settings button (placeholder)
+                      // Settings button
                       IconButton(
                         icon: const Icon(Icons.settings),
                         iconSize: 32,
                         color: Colors.white,
-                        onPressed: () {
-                          // TODO: Show settings panel
-                        },
+                        onPressed: _showSettings,
                       ),
+                      const SizedBox(width: 12),
+                      // Prestige button
+                      IconButton(
+                        icon: const Icon(Icons.star),
+                        iconSize: 32,
+                        color: Colors.amber,
+                        onPressed: _showPrestige,
+                      ),
+                      const Spacer(),
                       // Shop button
                       ElevatedButton.icon(
                         onPressed: _showShop,
