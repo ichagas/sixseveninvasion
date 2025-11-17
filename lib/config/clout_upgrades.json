@@ -1,0 +1,44 @@
+{
+  "cloutUpgrades": [
+    {
+      "id": "clout_tap_boost",
+      "name": "Tap Mastery",
+      "description": "Permanent +50% tap power",
+      "cloutCost": 1,
+      "multiplier": 0.5,
+      "effectType": "tap"
+    },
+    {
+      "id": "clout_passive_boost",
+      "name": "Passive Empire",
+      "description": "Permanent +50% passive income",
+      "cloutCost": 1,
+      "multiplier": 0.5,
+      "effectType": "passive"
+    },
+    {
+      "id": "clout_all_boost",
+      "name": "Meme Lord",
+      "description": "Permanent +25% to all energy generation",
+      "cloutCost": 2,
+      "multiplier": 0.25,
+      "effectType": "all"
+    },
+    {
+      "id": "clout_mega_boost",
+      "name": "Viral Legend",
+      "description": "Permanent +100% to all energy generation",
+      "cloutCost": 5,
+      "multiplier": 1.0,
+      "effectType": "all"
+    },
+    {
+      "id": "clout_ultra_boost",
+      "name": "Internet God",
+      "description": "Permanent +200% to all energy generation",
+      "cloutCost": 10,
+      "multiplier": 2.0,
+      "effectType": "all"
+    }
+  ]
+}
