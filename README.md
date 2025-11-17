@@ -6,16 +6,25 @@ A clicker-style meme game built with Flutter and Flame engine.
 
 "6-7 Invasion" is a humorous tap-based mobile/web game where players spread the "6-7" meme to grow their influence and unlock new locations. Tap to generate energy, purchase upgrades, unlock locations, and face resistance events!
 
-## Features (Sprint 1 - MVP Foundation)
+## Features
 
+### Sprint 1 - Foundation ✅
 - **Core Tapping Mechanics**: Tap anywhere to generate 6-7 Energy
 - **Particle Effects**: Beautiful burst animations on each tap
 - **Upgrade System**: JSON-driven upgrades with tap multipliers and passive generators
 - **Passive Income**: Auto-generators that produce energy per second
-- **Location Progression**: Four locations (Classroom, Gym, Street, Internet)
-- **Resistance Events**: Random events that affect gameplay
 - **Auto-Save**: Game progress saved automatically every 10 seconds
 - **Persistent State**: Load your saved game on restart
+
+### Sprint 2 - Content & Progression ✅
+- **Location Progression**: Automatic advancement through 4 locations (Classroom → Gym → Street → Internet)
+- **Dynamic Backgrounds**: Color-coded backgrounds that change per location
+- **Progress Tracking**: Visual saturation bar showing progress to next location
+- **Resistance Events**: Random timed events that affect gameplay (4 types implemented)
+- **Event Notifications**: Real-time UI alerts for active resistance events
+- **Character Sprites**: Emoji-based NPCs that react to location changes
+- **Enhanced UI**: Polished overlays with better information display
+- **8 Upgrades**: Complete upgrade tree with progression requirements
 
 ## Project Structure
 
@@ -105,16 +114,16 @@ The game requires the following assets (currently placeholders):
 - [x] Add shop UI and upgrade panel
 - [x] Build JSON-driven upgrade system
 
-### Sprint 2 - Content, Upgrades & Progression (Week 2)
-- [ ] Add 5-8 complete upgrade definitions
-- [ ] Implement location progression system
-- [ ] Add location saturation bar
-- [ ] Implement background swap per location
-- [ ] Add character/NPC sprites
-- [ ] Add resistance event system
-- [ ] Implement 2 resistance events
-- [ ] Add sound effects
-- [ ] Improve UI layout
+### Sprint 2 - Content, Upgrades & Progression ✅
+- [x] Add 5-8 complete upgrade definitions (8 upgrades implemented)
+- [x] Implement location progression system
+- [x] Add location saturation bar
+- [x] Implement background swap per location
+- [x] Add character/NPC sprites (emoji-based)
+- [x] Add resistance event system
+- [x] Implement 4 resistance events (all defined)
+- [x] Add sound effects integration
+- [x] Improve UI layout
 
 ### Sprint 3 - Polishing, Prestige & MVP Launch (Week 3)
 - [ ] Implement Prestige ("Clout") system

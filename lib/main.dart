@@ -8,6 +8,8 @@ import 'services/game_config_service.dart';
 import 'game/six_seven_game.dart';
 import 'ui/overlays/energy_display.dart';
 import 'ui/overlays/shop_panel.dart';
+import 'ui/overlays/location_progress_bar.dart';
+import 'ui/overlays/event_notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +96,7 @@ class _GameScreenState extends State<GameScreen> {
       gameState: widget.gameState,
       audioService: widget.audioService,
       configService: widget.configService,
+      onEventTriggered: _onEventTriggered,
     );
 
     // Auto-save every 10 seconds
@@ -120,7 +123,17 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onGameStateChanged() {
-    // Can add additional logic here if needed
+    // Trigger UI rebuild when game state changes
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void _onEventTriggered(String eventId) {
+    // Force UI update when event triggers
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void _showShop() {
@@ -148,12 +161,20 @@ class _GameScreenState extends State<GameScreen> {
           GameWidget(
             game: game,
           ),
+          // Event notifications at top
+          EventNotifications(
+            configService: widget.configService,
+          ),
           // UI Overlays
           SafeArea(
             child: Column(
               children: [
                 // Energy display at top
                 const EnergyDisplay(),
+                // Location progress bar
+                LocationProgressBar(
+                  configService: widget.configService,
+                ),
                 const Spacer(),
                 // Shop button at bottom
                 Padding(
