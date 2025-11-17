@@ -1,0 +1,40 @@
+{
+  "events": [
+    {
+      "id": "teacher_silencer",
+      "name": "Teacher Silencer",
+      "description": "The teacher is watching! Tap power reduced by 50%",
+      "effectType": "reduceTapPower",
+      "effectStrength": 0.5,
+      "durationSeconds": 30,
+      "minLocation": 0
+    },
+    {
+      "id": "parent_lecture",
+      "name": "Parent Lecture",
+      "description": "Your parents are giving you 'the talk'. Passive income paused!",
+      "effectType": "pausePassiveIncome",
+      "effectStrength": 1.0,
+      "durationSeconds": 45,
+      "minLocation": 0
+    },
+    {
+      "id": "security_chase",
+      "name": "Security Guard Chase",
+      "description": "Run! Security is after you. All income reduced by 75%",
+      "effectType": "reducePassiveIncome",
+      "effectStrength": 0.75,
+      "durationSeconds": 60,
+      "minLocation": 1
+    },
+    {
+      "id": "algorithm_suppression",
+      "name": "Algorithm Suppression",
+      "description": "The algorithm is suppressing your content! Upgrade costs increased by 50%",
+      "effectType": "increaseUpgradeCosts",
+      "effectStrength": 0.5,
+      "durationSeconds": 90,
+      "minLocation": 2
+    }
+  ]
+}
