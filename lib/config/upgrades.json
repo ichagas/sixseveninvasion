@@ -1,0 +1,84 @@
+{
+  "upgrades": [
+    {
+      "id": "finger_guns",
+      "name": "Finger Guns",
+      "description": "+1 energy per tap",
+      "type": "tapMultiplier",
+      "baseCost": 10,
+      "costMultiplier": 1.15,
+      "baseEffect": 1,
+      "requiredLocation": 0
+    },
+    {
+      "id": "megaphone",
+      "name": "Megaphone",
+      "description": "+5 energy per tap",
+      "type": "tapMultiplier",
+      "baseCost": 100,
+      "costMultiplier": 1.2,
+      "baseEffect": 5,
+      "requiredLocation": 0
+    },
+    {
+      "id": "bot_army",
+      "name": "Bot Army",
+      "description": "1 energy/sec per level",
+      "type": "passiveGenerator",
+      "baseCost": 50,
+      "costMultiplier": 1.15,
+      "baseEffect": 1,
+      "requiredLocation": 0
+    },
+    {
+      "id": "echo_chamber",
+      "name": "Echo Chamber",
+      "description": "5 energy/sec per level",
+      "type": "passiveGenerator",
+      "baseCost": 500,
+      "costMultiplier": 1.18,
+      "baseEffect": 5,
+      "requiredLocation": 1
+    },
+    {
+      "id": "kids",
+      "name": "Recruit Kids",
+      "description": "10 energy/sec per level",
+      "type": "passiveGenerator",
+      "baseCost": 2000,
+      "costMultiplier": 1.2,
+      "baseEffect": 10,
+      "requiredLocation": 1
+    },
+    {
+      "id": "viral_video",
+      "name": "Viral Video",
+      "description": "+20 energy per tap",
+      "type": "tapMultiplier",
+      "baseCost": 5000,
+      "costMultiplier": 1.25,
+      "baseEffect": 20,
+      "requiredLocation": 2
+    },
+    {
+      "id": "influencer",
+      "name": "Influencer Network",
+      "description": "50 energy/sec per level",
+      "type": "passiveGenerator",
+      "baseCost": 10000,
+      "costMultiplier": 1.22,
+      "baseEffect": 50,
+      "requiredLocation": 2
+    },
+    {
+      "id": "meme_factory",
+      "name": "Meme Factory",
+      "description": "200 energy/sec per level",
+      "type": "passiveGenerator",
+      "baseCost": 50000,
+      "costMultiplier": 1.25,
+      "baseEffect": 200,
+      "requiredLocation": 3
+    }
+  ]
+}
