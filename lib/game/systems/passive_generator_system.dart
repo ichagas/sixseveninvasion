@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import '../../models/game_state.dart';
 import '../../models/upgrade.dart';
+import '../../models/resistance_event.dart';
 import '../../services/game_config_service.dart';
 
 /// System that handles passive energy generation

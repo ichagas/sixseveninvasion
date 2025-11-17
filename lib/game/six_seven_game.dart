@@ -10,7 +10,7 @@ import 'systems/passive_generator_system.dart';
 import 'systems/upgrade_manager.dart';
 
 /// Main game class for 6-7 Invasion
-class SixSevenGame extends FlameGame with TapDetector {
+class SixSevenGame extends FlameGame {
   final GameState gameState;
   final AudioService audioService;
   final GameConfigService configService;
@@ -52,8 +52,6 @@ class SixSevenGame extends FlameGame with TapDetector {
 
   @override
   void onTapDown(TapDownInfo info) {
-    super.onTapDown(info);
-
     // Add energy from tap
     gameState.tap();
 
