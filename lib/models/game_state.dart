@@ -25,10 +25,15 @@ class GameState extends ChangeNotifier {
   // Active resistance events (event ID -> end timestamp)
   final Map<String, DateTime> _activeEvents = {};
 
+  // Achievements (unlocked achievement IDs)
+  final Set<String> _unlockedAchievements = {};
+
   // Statistics
   int _totalTaps = 0;
   double _totalEnergyGenerated = 0.0;
+  int _eventsSurvived = 0;
   DateTime _gameStartTime = DateTime.now();
+  DateTime _lastOfflineTime = DateTime.now();
 
   // Getters
   double get energy => _energy;
@@ -42,9 +47,12 @@ class GameState extends ChangeNotifier {
   Map<String, int> get upgradeLevels => Map.unmodifiable(_upgradeLevels);
   Set<String> get cloutUpgrades => Set.unmodifiable(_cloutUpgrades);
   Map<String, DateTime> get activeEvents => Map.unmodifiable(_activeEvents);
+  Set<String> get unlockedAchievements => Set.unmodifiable(_unlockedAchievements);
   int get totalTaps => _totalTaps;
   double get totalEnergyGenerated => _totalEnergyGenerated;
+  int get eventsSurvived => _eventsSurvived;
   DateTime get gameStartTime => _gameStartTime;
+  DateTime get lastOfflineTime => _lastOfflineTime;
 
   /// Add energy from tap
   void tap() {
@@ -104,8 +112,12 @@ class GameState extends ChangeNotifier {
   /// Remove expired events
   void cleanupEvents() {
     final now = DateTime.now();
+    final expiredCount = _activeEvents.values.where((time) => time.isBefore(now)).length;
+    _eventsSurvived += expiredCount;
     _activeEvents.removeWhere((key, value) => value.isBefore(now));
-    notifyListeners();
+    if (expiredCount > 0) {
+      notifyListeners();
+    }
   }
 
   /// Check if event is active
@@ -129,6 +141,30 @@ class GameState extends ChangeNotifier {
   /// Check if clout upgrade is purchased
   bool hasCloutUpgrade(String upgradeId) {
     return _cloutUpgrades.contains(upgradeId);
+  }
+
+  /// Unlock achievement
+  bool unlockAchievement(String achievementId, {int cloutReward = 0}) {
+    if (!_unlockedAchievements.contains(achievementId)) {
+      _unlockedAchievements.add(achievementId);
+      if (cloutReward > 0) {
+        _clout += cloutReward;
+      }
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  /// Check if achievement is unlocked
+  bool hasAchievement(String achievementId) {
+    return _unlockedAchievements.contains(achievementId);
+  }
+
+  /// Update last offline time (called when app resumes)
+  void updateOfflineTime() {
+    _lastOfflineTime = DateTime.now();
+    notifyListeners();
   }
 
   /// Calculate clout earned from prestige
@@ -179,9 +215,12 @@ class GameState extends ChangeNotifier {
       'upgradeLevels': _upgradeLevels,
       'cloutUpgrades': _cloutUpgrades.toList(),
       'activeEvents': _activeEvents.map((k, v) => MapEntry(k, v.toIso8601String())),
+      'unlockedAchievements': _unlockedAchievements.toList(),
       'totalTaps': _totalTaps,
       'totalEnergyGenerated': _totalEnergyGenerated,
+      'eventsSurvived': _eventsSurvived,
       'gameStartTime': _gameStartTime.toIso8601String(),
+      'lastOfflineTime': _lastOfflineTime.toIso8601String(),
     };
   }
 
@@ -197,6 +236,7 @@ class GameState extends ChangeNotifier {
     _totalResets = json['totalResets'] ?? 0;
     _totalTaps = json['totalTaps'] ?? 0;
     _totalEnergyGenerated = json['totalEnergyGenerated'] ?? 0.0;
+    _eventsSurvived = json['eventsSurvived'] ?? 0;
 
     if (json['upgradeLevels'] != null) {
       _upgradeLevels.clear();
@@ -208,6 +248,11 @@ class GameState extends ChangeNotifier {
       _cloutUpgrades.addAll(List<String>.from(json['cloutUpgrades']));
     }
 
+    if (json['unlockedAchievements'] != null) {
+      _unlockedAchievements.clear();
+      _unlockedAchievements.addAll(List<String>.from(json['unlockedAchievements']));
+    }
+
     if (json['activeEvents'] != null) {
       _activeEvents.clear();
       (json['activeEvents'] as Map<String, dynamic>).forEach((k, v) {
@@ -217,6 +262,10 @@ class GameState extends ChangeNotifier {
 
     if (json['gameStartTime'] != null) {
       _gameStartTime = DateTime.parse(json['gameStartTime']);
+    }
+
+    if (json['lastOfflineTime'] != null) {
+      _lastOfflineTime = DateTime.parse(json['lastOfflineTime']);
     }
 
     notifyListeners();
