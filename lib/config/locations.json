@@ -1,0 +1,36 @@
+{
+  "locations": [
+    {
+      "id": 0,
+      "name": "Classroom",
+      "description": "Where the 6-7 meme was born",
+      "saturationRequired": 500,
+      "backgroundPath": "assets/images/bg_classroom.png",
+      "characterPaths": []
+    },
+    {
+      "id": 1,
+      "name": "Gym",
+      "description": "Spreading to the jocks",
+      "saturationRequired": 5000,
+      "backgroundPath": "assets/images/bg_gym.png",
+      "characterPaths": []
+    },
+    {
+      "id": 2,
+      "name": "Street",
+      "description": "Taking it to the streets",
+      "saturationRequired": 50000,
+      "backgroundPath": "assets/images/bg_street.png",
+      "characterPaths": []
+    },
+    {
+      "id": 3,
+      "name": "Internet",
+      "description": "Going viral worldwide",
+      "saturationRequired": 500000,
+      "backgroundPath": "assets/images/bg_internet.png",
+      "characterPaths": []
+    }
+  ]
+}
