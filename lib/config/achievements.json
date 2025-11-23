@@ -1,0 +1,157 @@
+{
+  "achievements": [
+    {
+      "id": "first_tap",
+      "name": "First Steps",
+      "description": "Tap for the first time",
+      "iconName": "touch_app",
+      "type": "milestone",
+      "target": 1,
+      "rewardClout": 0
+    },
+    {
+      "id": "tap_master_100",
+      "name": "Tap Enthusiast",
+      "description": "Tap 100 times",
+      "iconName": "touch_app",
+      "type": "cumulative",
+      "target": 100,
+      "rewardClout": 0
+    },
+    {
+      "id": "tap_master_1000",
+      "name": "Tap Master",
+      "description": "Tap 1,000 times",
+      "iconName": "touch_app",
+      "type": "cumulative",
+      "target": 1000,
+      "rewardClout": 1
+    },
+    {
+      "id": "tap_master_10000",
+      "name": "Tap Legend",
+      "description": "Tap 10,000 times",
+      "iconName": "touch_app",
+      "type": "cumulative",
+      "target": 10000,
+      "rewardClout": 2
+    },
+    {
+      "id": "first_clout",
+      "name": "Rising Star",
+      "description": "Earn your first Clout",
+      "iconName": "star",
+      "type": "prestige",
+      "target": 1,
+      "rewardClout": 0
+    },
+    {
+      "id": "prestige_5",
+      "name": "Veteran",
+      "description": "Prestige 5 times",
+      "iconName": "replay",
+      "type": "prestige",
+      "target": 5,
+      "rewardClout": 1
+    },
+    {
+      "id": "prestige_10",
+      "name": "Prestige Master",
+      "description": "Prestige 10 times",
+      "iconName": "replay",
+      "type": "prestige",
+      "target": 10,
+      "rewardClout": 2
+    },
+    {
+      "id": "location_gym",
+      "name": "Gym Rat",
+      "description": "Reach the Gym",
+      "iconName": "fitness_center",
+      "type": "milestone",
+      "target": 1,
+      "rewardClout": 0
+    },
+    {
+      "id": "location_street",
+      "name": "Street Cred",
+      "description": "Reach the Street",
+      "iconName": "directions_walk",
+      "type": "milestone",
+      "target": 2,
+      "rewardClout": 1
+    },
+    {
+      "id": "location_internet",
+      "name": "Internet Famous",
+      "description": "Reach the Internet",
+      "iconName": "public",
+      "type": "milestone",
+      "target": 3,
+      "rewardClout": 2
+    },
+    {
+      "id": "energy_1k",
+      "name": "Energy Collector",
+      "description": "Generate 1K total energy",
+      "iconName": "bolt",
+      "type": "cumulative",
+      "target": 1000,
+      "rewardClout": 0
+    },
+    {
+      "id": "energy_100k",
+      "name": "Power Plant",
+      "description": "Generate 100K total energy",
+      "iconName": "bolt",
+      "type": "cumulative",
+      "target": 100000,
+      "rewardClout": 1
+    },
+    {
+      "id": "energy_1m",
+      "name": "Megawatt Master",
+      "description": "Generate 1M total energy",
+      "iconName": "bolt",
+      "type": "cumulative",
+      "target": 1000000,
+      "rewardClout": 2
+    },
+    {
+      "id": "survivor_10",
+      "name": "Resistance Fighter",
+      "description": "Survive 10 resistance events",
+      "iconName": "shield",
+      "type": "cumulative",
+      "target": 10,
+      "rewardClout": 1
+    },
+    {
+      "id": "survivor_50",
+      "name": "Unstoppable",
+      "description": "Survive 50 resistance events",
+      "iconName": "shield",
+      "type": "cumulative",
+      "target": 50,
+      "rewardClout": 2
+    },
+    {
+      "id": "collector",
+      "name": "Complete Set",
+      "description": "Own all 8 regular upgrades",
+      "iconName": "collections",
+      "type": "collection",
+      "target": 8,
+      "rewardClout": 2
+    },
+    {
+      "id": "clout_collector",
+      "name": "Clout Collector",
+      "description": "Own all 5 Clout upgrades",
+      "iconName": "star_border",
+      "type": "collection",
+      "target": 5,
+      "rewardClout": 3
+    }
+  ]
+}
